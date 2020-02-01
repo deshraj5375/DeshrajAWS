@@ -1,0 +1,56 @@
+Parameters:
+  logGroup:
+    Type: String
+    Description: "This is to create Log group"
+  retentionInDays:
+    Description: "This is to declare retentioon log in days"  
+    Type: Number
+
+Resources:
+  clouwatchLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: #vpcFloglogFromCloudformation
+        !Ref logGroup
+      RetentionInDays: 
+        !Ref retentionInDays
+  vpcFlowLog:
+    Type: AWS::EC2::FlowLog
+    Properties: 
+      DeliverLogsPermissionArn: 
+        !GetAtt rolePermission.Arn
+      LogDestination:
+        !GetAtt clouwatchLogGroup.Arn
+      LogDestinationType: cloud-watch-logs
+      ResourceId: vpc-f28da59a
+      ResourceType: VPC
+      TrafficType: ALL
+
+  rolePermission:
+    Type: AWS::IAM::Role
+    Properties:     
+      Description: "This role is used for pushing logs to cloudwatch"
+      RoleName: rolevpcflowflog
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - vpc-flow-logs.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: policyvpcflog
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:DescribeLogGroups
+                  - logs:DescribeLogStreams
+                  - logs:PutLogEvents
+                Resource: '*'
