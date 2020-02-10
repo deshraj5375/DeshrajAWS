@@ -1,0 +1,13 @@
+[
+    {
+        "ParameterKey": "logGroup",
+        "ParameterValue": "vpcdeshrajfromcloudformation"
+     
+    },
+    {
+        "ParameterKey": "retentionInDays",
+        "ParameterValue": "5"
+     
+    }
+    
+    ]
