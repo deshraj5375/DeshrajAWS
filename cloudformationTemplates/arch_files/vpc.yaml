@@ -1,0 +1,20 @@
+Parameters:
+  cidrBlock:
+    Type: String
+    Description: "This is for creating VPC"
+Resources:
+  VPCDemo:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: !Ref cidrBlock
+      Tags: 
+        - 
+          Key: "Product"
+          Value: "DemoDesh"
+
+Outputs:
+  StackVPC:
+    Description: This is ID for the VPC.
+    Value: !Ref VPCDemo
+    Export: 
+      Name: !Sub "${AWS::StackName}-VPCID"

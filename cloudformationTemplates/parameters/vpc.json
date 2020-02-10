@@ -1,13 +1,7 @@
 [
-{
-    "ParameterKey": "logGroup",
-    "ParameterValue": "vpcdeshrajfromcloudformation"
- 
-},
-{
-    "ParameterKey": "retentionInDays",
-    "ParameterValue": "5"
- 
-}
-
+    {
+        "ParameterKey": "cidrBlock",
+        "ParameterValue": "10.0.0.0/16"
+     
+    }
 ]
