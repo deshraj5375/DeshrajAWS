@@ -1,12 +1,22 @@
 [
     {
-        "ParameterKey": "logGroup",
-        "ParameterValue": "vpcdeshrajfromcloudformation"
+        "ParameterKey": "region",
+        "ParameterValue": "ap-south-1a"
      
     },
     {
-        "ParameterKey": "retentionInDays",
-        "ParameterValue": "5"
+        "ParameterKey": "image",
+        "ParameterValue": "ami-0217a85e28e625474"
+     
+    },
+    {
+        "ParameterKey": "instancetype",
+        "ParameterValue": "t2.micro"
+     
+    },
+    {
+        "ParameterKey": "key",
+        "ParameterValue": "awsJenkins"
      
     }
     

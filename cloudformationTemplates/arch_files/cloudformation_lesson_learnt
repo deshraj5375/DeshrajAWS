@@ -1,0 +1,4 @@
+rollback_complete -> This happens when stack creation fails. 
+Unless you've specified that it should be deleted on failure, 
+it will remain in place with a status of ROLLBACK_COMPLETE.
+ You cannot update this stack; you will have to manually delete it and deploy it again.
