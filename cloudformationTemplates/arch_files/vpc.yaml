@@ -2,6 +2,18 @@ Parameters:
   cidrBlock:
     Type: String
     Description: "This is for creating VPC"
+  region:
+    Type: String
+    Description: "This is to define AZ region"
+  image:
+    Type: String
+    Description: "This is to define Image id"   
+  instancetype:
+    Type: String
+    Description: "This is to instance type" 
+  key:
+    Type: String
+    Description: "This is to key pair"     
 Resources:
   VPCDemo:
     Type: AWS::EC2::VPC
@@ -11,6 +23,106 @@ Resources:
         - 
           Key: "Product"
           Value: "DemoDesh"
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:  
+      AvailabilityZone: ap-south-1a
+      CidrBlock: 10.0.16.0/20
+      VpcId: !Ref VPCDemo
+      Tags: 
+        - Key: "Name"
+          Value: "PrivateSubnet"
+    DependsOn: VPCDemo     
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:  
+      AvailabilityZone: ap-south-1a
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.0.0/24
+      VpcId: !Ref VPCDemo  
+      Tags: 
+        - Key: "Name"
+          Value: "PublicSubnet" 
+    DependsOn: VPCDemo
+
+  myInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: InternetGateway
+    DependsOn: VPCDemo
+
+  MygatewayAttched:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties: 
+      InternetGatewayId: !Ref myInternetGateway
+      VpcId: !Ref VPCDemo 
+    DependsOn: myInternetGateway
+  
+  MyPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPCDemo
+    DependsOn: VPCDemo
+
+  MyPublicRoute:
+    Type: AWS::EC2::Route
+    Properties:     
+      RouteTableId: 
+        !Ref MyPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: 
+        !Ref myInternetGateway
+    DependsOn: MyPublicRouteTable 
+  
+  MyPublicRouteTableMapping:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref MyPublicRouteTable
+      SubnetId: !Ref PublicSubnet  
+
+  PublicEc2:
+    Type: AWS::EC2::Instance
+    DependsOn: MyPublicRoute
+    Properties:  
+      AvailabilityZone: 
+        !Ref region
+      BlockDeviceMappings:
+        -
+          DeviceName: /dev/xvda
+          Ebs: 
+            DeleteOnTermination: True                                                
+            VolumeSize: 8
+            VolumeType: gp2  
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - !Ref SecuirtyGroup
+          SubnetId: 
+            !Ref PublicSubnet                    
+      ImageId: 
+        !Ref image
+      InstanceType:
+        !Ref instancetype
+      KeyName:
+        !Ref key  
+
+  SecuirtyGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "This is the Secuirty grouop from cloudformation"
+      VpcId: !Ref VPCDemo
+      GroupName: SecurityGroupName
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+
 
 Outputs:
   StackVPC:
