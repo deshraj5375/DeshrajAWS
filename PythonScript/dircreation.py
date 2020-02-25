@@ -29,7 +29,7 @@ if __name__ == '__main__':
     dirPrefix = 'f0'
     for i in range(100,151):
         dirname=dirPrefix+str(i)
-        pathtoadd="C:/Users/CD88TR3/testing/"+dirname
+        pathtoadd="C:/Users/Deshraj/testing/"+dirname
         if int(argumentList[1]) == 1:
             fun_createFolder(pathtoadd)
         elif int(argumentList[1]) == 2:
