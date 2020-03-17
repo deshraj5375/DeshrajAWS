@@ -1,0 +1,2 @@
+aws cloudformation create-stack --stack-name newec2instance1  --template-body file:///opt/DeshrajAws/cloudformationTemplates/arch_files/ec2.yaml --parameters file:///opt/DeshrajAws/cloudformationTemplates/parameters/ec2.json --region=ap-south-1
+
