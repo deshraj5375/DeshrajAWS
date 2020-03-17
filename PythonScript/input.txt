@@ -1,0 +1,33 @@
+#SSO Application
+sso_stg01   https://stg001-sso.epost.ca/sso/lfe/ui/login
+sso_stg02   https://stg002-sso.epost.ca/sso/lfe/ui/login
+sso_stg03   https://stg003-sso.epost.ca/sso/lfe/ui/login
+sso_stg04   https://stg004-sso.epost.ca/sso/lfe/ui/login
+
+#Canada post
+canadapost_stg10    https://stg10.canadapost.ca/cpc/en/home.page
+canadapost_stg11    https://stg11.canadapost.ca/cpc/en/home.page
+canadapost_stg12    https://stg12.canadapost.ca/cpc/en/home.page
+canadapost_stg13    https://stg13.canadapost.ca/cpc/en/home.page
+
+#Smart health Status
+pfe_stg001  https://stg001-sso.epost.ca/sso/pfe/rs/healthcheck/smart
+pfe_stg002  https://stg002-sso.epost.ca/sso/pfe/rs/healthcheck/smart
+pfe_stg003  https://stg003-sso.epost.ca/sso/pfe/rs/healthcheck/smart
+pfe_stg004  https://stg004-sso.epost.ca/sso/pfe/rs/healthcheck/smart
+
+lre_stg001  https://stg001-sso.epost.ca/sso/lfe/rs/healthcheck/smart
+lre_stg002  https://stg002-sso.epost.ca/sso/lfe/rs/healthcheck/smart
+lre_stg003  https://stg003-sso.epost.ca/sso/lfe/rs/healthcheck/smart
+lre_stg004  https://stg004-sso.epost.ca/sso/lfe/rs/healthcheck/smart
+
+#Deployment
+deployemnt_pfe_stg001   https://stg001-sso.epost.ca/sso/pfe/rs/healthcheck
+deployemnt_pfe_stg002   https://stg002-sso.epost.ca/sso/pfe/rs/healthcheck
+deployemnt_pfe_stg003   https://stg003-sso.epost.ca/sso/pfe/rs/healthcheck
+deployemnt_pfe_stg004   https://stg004-sso.epost.ca/sso/pfe/rs/healthcheck
+
+deployemnt_lre_stg001   https://stg001-sso.epost.ca/sso/lfe/rs/healthcheck
+deployemnt_lre_stg002   https://stg002-sso.epost.ca/sso/lfe/rs/healthcheck
+deployemnt_lre_stg003   https://stg003-sso.epost.ca/sso/lfe/rs/healthcheck
+deployemnt_lre_stg004   https://stg004-sso.epost.ca/sso/lfe/rs/healthcheck
