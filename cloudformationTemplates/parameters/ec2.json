@@ -1,12 +1,12 @@
 [
     {
         "ParameterKey": "region",
-        "ParameterValue": "ap-south-1a"
+        "ParameterValue": "us-east-1a"
      
     },
     {
         "ParameterKey": "image",
-        "ParameterValue": "ami-0217a85e28e625474"
+        "ParameterValue": "ami-0fc61db8544a617ed"
      
     },
     {
