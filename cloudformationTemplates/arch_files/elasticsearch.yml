@@ -1,0 +1,40 @@
+Parameters:
+    volumeSize:
+        Type: String
+        Description: "Volume size"
+    instanceType:
+        Type: String
+        Description: "Instance Type" 
+    domainName:
+      Type: String
+      Description: "Domain name"
+    elasticVersion:
+      Type: String
+      Description: "elastic version"      
+
+Resources:
+    elasticSearch:
+        Type: AWS::Elasticsearch::Domain
+        Properties:
+          AccessPolicies:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Principal:
+                  AWS: "*"
+                Action: "es:*"
+                Resource: "*"
+          DomainName: 
+            !Ref domainName                
+          EBSOptions:
+              EBSEnabled: true              
+              VolumeSize: 
+                !Ref volumeSize
+              VolumeType: "gp2"
+          ElasticsearchClusterConfig:
+              InstanceCount: 1
+              InstanceType: 
+                !Ref instanceType      
+          ElasticsearchVersion:
+            !Ref elasticVersion

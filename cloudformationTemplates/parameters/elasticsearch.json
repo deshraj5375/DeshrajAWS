@@ -1,0 +1,23 @@
+[
+    {
+        "ParameterKey": "volumeSize",
+        "ParameterValue": "10"
+     
+    },
+    {
+        "ParameterKey": "instanceType",
+        "ParameterValue": "t2.small.elasticsearch"
+     
+    },
+    {
+        "ParameterKey": "domainName",
+        "ParameterValue": "devenv"
+     
+    },
+    {
+        "ParameterKey": "elasticVersion",
+        "ParameterValue": "7.4"
+     
+    }
+    
+]
