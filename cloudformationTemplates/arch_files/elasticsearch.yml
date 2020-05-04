@@ -10,31 +10,102 @@ Parameters:
       Description: "Domain name"
     elasticVersion:
       Type: String
-      Description: "elastic version"      
+      Description: "elastic version"
+    cidrBlock:
+      Type: String
+      Description: "This is for creating VPC"            
 
 Resources:
-    elasticSearch:
-        Type: AWS::Elasticsearch::Domain
-        Properties:
-          AccessPolicies:
-            Version: "2012-10-17"
-            Statement:
-              -
-                Effect: "Allow"
-                Principal:
-                  AWS: "*"
-                Action: "es:*"
-                Resource: "*"
-          DomainName: 
-            !Ref domainName                
-          EBSOptions:
-              EBSEnabled: true              
-              VolumeSize: 
-                !Ref volumeSize
-              VolumeType: "gp2"
-          ElasticsearchClusterConfig:
-              InstanceCount: 1
-              InstanceType: 
-                !Ref instanceType      
-          ElasticsearchVersion:
-            !Ref elasticVersion
+  VPCDemo:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: !Ref cidrBlock
+      Tags: 
+        - 
+          Key: "Product"
+          Value: "DemoDesh"
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:  
+      AvailabilityZone: "us-east-1a"
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.0.0/24
+      VpcId: !Ref VPCDemo  
+      Tags: 
+        - Key: "Name"
+          Value: "PublicSubnet" 
+    DependsOn: VPCDemo
+
+  myInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: InternetGateway
+    DependsOn: VPCDemo
+
+  MygatewayAttched:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties: 
+      InternetGatewayId: !Ref myInternetGateway
+      VpcId: !Ref VPCDemo 
+    DependsOn: myInternetGateway
+  
+  MyPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPCDemo
+    DependsOn: VPCDemo
+
+  MyPublicRoute:
+    Type: AWS::EC2::Route
+    Properties:     
+      RouteTableId: 
+        !Ref MyPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: 
+        !Ref myInternetGateway
+    DependsOn: MyPublicRouteTable 
+  
+  MyPublicRouteTableMapping:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref MyPublicRouteTable
+      SubnetId: !Ref PublicSubnet    
+
+  serviceLinkedrole:
+    Type: AWS::IAM::ServiceLinkedRole
+    Properties:
+      AWSServiceName: es.amazonaws.com
+      Description: 'Role for ES to access resources in my VPC'
+
+  elasticSearch:
+    Type: AWS::Elasticsearch::Domain
+    Properties:
+      AccessPolicies:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              AWS: "*"
+            Action: "es:*"
+            Resource: "*"
+      DomainName: 
+        !Ref domainName                
+      EBSOptions:
+          EBSEnabled: true              
+          VolumeSize: 
+            !Ref volumeSize
+          VolumeType: "gp2"
+      ElasticsearchClusterConfig:
+          InstanceCount: 1
+          InstanceType: 
+            !Ref instanceType      
+      ElasticsearchVersion:
+        !Ref elasticVersion
+      VPCOptions:
+        SubnetIds: 
+          - !Ref PublicSubnet
+    DependsOn: MyPublicRoute
