@@ -1,0 +1,11 @@
+1) sudo hostnamectl set-hostname --static HOSTNAMETOBEGIVEN
+2)add below in /etc/cloud/cloud.cfg
+preserve_hostname: true
+
+3) create dns route in /etc/hosts. 
+
+IPADDRESSOFRemoteHOST   name
+eg.
+172.31.35.138   node2
+
+reboot instance.
