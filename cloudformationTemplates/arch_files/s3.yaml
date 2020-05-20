@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  bucketName:
+    Type: String
+    Description: "Bucket Name"
+Resources:
+  s3Demo:
+    Type: AWS::S3::Bucket
+    Properties: 
+      AccessControl: BucketOwnerFullControl
+      BucketName: !Ref bucketName
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules: 
+          - ExpirationInDays: 1
+            Id: Expiration Rule
+            Status: Enabled
+            Prefix: logs/d*

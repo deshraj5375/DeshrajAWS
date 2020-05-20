@@ -1,0 +1,21 @@
+Parameters:
+    logGroupName:
+        Type: String
+        Description: "Volume size"
+    streamName:
+        Type: String
+        Description: "Volume size"            
+Resources:
+  cloudwatchLogGroupDemo:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Ref logGroupName
+      RetentionInDays: 7
+
+  kinesisFirehoseDelieveryStream:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties:
+       DeliveryStreamName: !Ref streamName
+       DeliveryStreamType: DirectPut
+       
+

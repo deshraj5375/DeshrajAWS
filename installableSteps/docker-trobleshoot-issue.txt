@@ -1,0 +1,9 @@
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/version: dial unix /var/run/docker.sock: connect: permission denied
+
+resolutions:
+add non-root user in docker group like below
+sudo usermod -aG docker $USER
+
+source profile or login out then login in.
+
+=====================
