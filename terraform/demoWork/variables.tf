@@ -18,3 +18,11 @@ variable "ebsSize" {
     type = "string"
     default = "8"
 }
+variable "vpc" {
+    type = "string"
+    default = "vpc-aba993d1"
+}
+variable "subnet" {
+    type = "string"
+    default = "subnet-98866cc7"
+}
