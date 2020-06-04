@@ -1,0 +1,2 @@
+variable "sgName" {}
+variable "vpcid" {}

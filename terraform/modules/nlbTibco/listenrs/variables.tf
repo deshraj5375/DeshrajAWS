@@ -1,0 +1,2 @@
+variable "lbArn" {}
+variable "tgArn" {}

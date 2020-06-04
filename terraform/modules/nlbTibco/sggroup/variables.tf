@@ -1,0 +1,2 @@
+variable "sgGroupName" {}
+variable "vpc" {}
