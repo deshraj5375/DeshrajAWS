@@ -1,0 +1,15 @@
+[
+    {
+      "name": "first-poc",
+      "image": "108989018919.dkr.ecr.us-east-1.amazonaws.com/test:latest",
+      "cpu": 10,
+      "memory": 512,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
