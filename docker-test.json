@@ -1,4 +1,4 @@
 {
-"image" : "ubuntu"
-
+  "docker_pull" : "docker pull mysql",
+  "asset": "1"
 }
