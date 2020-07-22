@@ -1,0 +1,21 @@
+ import groovy.json.JsonSlurper
+node
+{
+    stage('checkout')
+    {
+        git changelog: false, poll: false, url: 'https://github.com/deshraj5375/DeshrajAws.git'
+    }
+    
+    stage('rading json file')
+    {
+        def inputFile = new File("${WORKSPACE}/docker-test.json")
+        def InputJSON = new JsonSlurper().parseFile(inputFile, 'UTF-8')
+        def docker_pull_command=InputJSON.docker_pull
+        def assetValue=InputJSON.asset
+        
+        echo "docker command is ==> ${docker_pull_command}"
+         echo "Asset claue is ==> ${assetValue}"
+        
+        
+    }
+}
