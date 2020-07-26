@@ -3,7 +3,9 @@ import groovy.json.JsonSlurper
 
 node
 {
- def result
+ def vulnerabilityDistribution
+ def complianceDistribution
+
  
     stage('checkout')
     {
@@ -12,17 +14,40 @@ node
     
     stage('reading json file')
 	{
-	  def output =sh label: '', returnStdout: true, script: ' cat docker-test.json'  
-	  def slurper = new JsonSlurper()
-      def output1 =  slurper.parseText(output)
-      result =output1.docker_pull
-	  echo "${result}"
+	  def output =sh label: '', returnStdout: true, script: 'cat testvn'  
+	  try{
+	        def slurper = new JsonSlurper().parseText(output)
+	        //fetching and converting it to string
+            vulnerabilityDistribution = (((slurper.entityInfo.vulnerabilityDistribution).join(' ')).replace('[','')).replace(']','')
+	        complianceDistribution = (((slurper.entityInfo.complianceDistribution).join(' ')).replace('[','')).replace(']','')
+			//geting critical count.
+			vulnerabilityCriticalResult=(vulnerabilityDistribution.tokenize(',')[0]).tokenize(':')[1]
+			complianceCriticalResult=(complianceDistribution.tokenize(',')[0]).tokenize(':')[1]
+			
+			echo "vulnerability scan resuult -> ${vulnerabilityDistribution}"
+			echo "compliance scan result -> ${complianceDistribution}"
+			echo "vulnerability critical count -> ${vulnerabilityCriticalResult}"			
+			echo "complianceCritical critical count -> ${complianceCriticalResult}"
+			
+			//checking if vulnerability and compliance count is zero or not.
+			 if ( vulnerabilityCriticalResult == "0" && complianceCriticalResult == "0" )
+					echo "push image to repository"
+			 else
+			  echo "Vulnerablity found. marking build failure and deleting image"
+			
 	 
+		}catch(Exception e)
+		{
+	      echo "some issue"
+		}
+	  
+	
         
     }
+	
 	stage('json file')
 	{ 
 	    echo "test"
-        echo "result is -> ${result}"    
+     //   echo "result is -> ${result}"    
     }
 }
