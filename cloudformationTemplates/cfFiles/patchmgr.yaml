@@ -1,0 +1,43 @@
+---
+Resources:
+  myPatchBaselineDev:
+    Type: AWS::SSM::PatchBaseline
+    Properties:
+      Name: "Dev"
+      Description: custom baseline for poc
+      OperatingSystem: "AMAZON_LINUX_2"
+      #PatchGroups: 
+      #- "test"
+      ApprovalRules:
+        PatchRules:
+        - PatchFilterGroup:
+            PatchFilters:
+            - Values:
+              - "*"
+              Key: CLASSIFICATION
+          ApproveAfterDays: 7
+          ComplianceLevel: CRITICAL
+        - PatchFilterGroup:
+            PatchFilters:
+            - Values:
+              - "*"
+              Key: SEVERITY
+          ApproveAfterDays: 7
+          ComplianceLevel: CRITICAL    
+        - PatchFilterGroup:
+            PatchFilters:
+            - Values:
+              - "*"
+              Key: PRODUCT
+          ApproveAfterDays: 7
+          ComplianceLevel: CRITICAL               
+
+  #myPatchMaintenace:
+  #  Type: AWS::SSM::MaintenanceWindow
+  #  Properties: 
+  #    AllowUnassociatedTargets: false 
+  #    Cutoff: 1
+  #    Description: "This is maintenace window"
+  #    Duration: 2     
+  #    Name: "customWindow"
+  #    Schedule: "cron(0 4 ? * SUN *)"
