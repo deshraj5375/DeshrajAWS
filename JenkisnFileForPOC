@@ -38,7 +38,7 @@ node
 	 
 		}catch(Exception e)
 		{
-	      echo "some issue"
+	      echo "some issue" 
 		}
 	  
 	
