@@ -1,13 +1,17 @@
 {
-"vulner":[{
-"a": "a",
-"b":"b",
+"vul":[
+{
+"name": "a",
+"addr":"a",
 "severity": "critical"
 },
 {
-	"a": "a",
-	"b":"b",
-	"severity": "critical"
-}
-]
-}
+"name": "b",
+"addr":"b",
+"severity": "critical"
+},
+{
+"name": "c",
+"addr":"c",
+"severity": "high"
+}]}
