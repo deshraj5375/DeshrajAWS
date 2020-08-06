@@ -1,4 +1,13 @@
 {
-  "docker_pull" : "docker pull mysql",
-  "asset": "1"
+"vulner":[{
+"a": "a",
+"b":"b",
+"severity": "critical"
+},
+{
+	"a": "a",
+	"b":"b",
+	"severity": "critical"
+}
+]
 }
