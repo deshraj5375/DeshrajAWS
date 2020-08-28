@@ -34,7 +34,7 @@ def firewallRuleadding():
     else:
         print("port is added in firwall")
 
-returnResult=os.system("curl -k --user username:Belpassword https://URL --output UDAinstall_11.50b.tar.gz >> /dev/null 2>&1")    
+returnResult=os.system("curl -k --user username:password https://URL --output UDAinstall_11.50b.tar.gz >> /dev/null 2>&1")    
 if returnResult == 0:        
     print("UDA tar.gz file downloaded")   
 returnResult=os.system("tar -xvf UDAinstall_11.50b.tar.gz >> /dev/null 2>&1")    
