@@ -1,0 +1,12 @@
+1) install virtualbox
+https://www.virtualbox.org/wiki/Downloads
+
+2) install minishift.
+https://github.com/minishift/minishift/releases
+
+3) unzip the minishift and place that in C drive.
+
+4) go inside minishift and run command, type bewlo 
+
+minishift.exe start --vm-driver virtualbox
+
