@@ -10,3 +10,14 @@ https://github.com/minishift/minishift/releases
 
 minishift.exe start --vm-driver virtualbox
 
+====================
+few cli commands.
+minishift.exe start
+minishift.exe stop
+
+oc get projects
+oc get users
+
+assign admin policy
+oc adm policy add-cluster-role-to-user cluster-admin developer
+
